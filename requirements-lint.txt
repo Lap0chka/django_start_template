@@ -1,0 +1,12 @@
+# format
+black
+
+# typing
+mypy
+
+# style
+flake8
+
+# analise
+pylint
+
