@@ -1,17 +1,8 @@
-import logging
 import os
 import sys
 
-logger = logging.getLogger(__name__)
-
-
 def main():
     """Run administrative tasks."""
-    logger.debug("debug")
-    logger.info("info")
-    logger.warning("warning")
-    logger.error("error")
-    logger.critical("critical")
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings.dev')
     try:
         from django.core.management import execute_from_command_line
@@ -22,7 +13,6 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-
 
 if __name__ == '__main__':
     main()
