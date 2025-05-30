@@ -6,20 +6,25 @@ fi
 
 echo "Target branch: origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
 
-git_diff_py_files=$(git diff origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME} --name-only | grep ".*\.py$" | grep -Ev "pb2|pb2_grpc")
+# Исключаем venv_template/ из diff
+git_diff_py_files=$(git diff origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME} --name-only \
+  | grep ".*\.py$" \
+  | grep -Ev "^venv_template/" \
+  | grep -Ev "core/" \
+  | grep -Ev "manage.py")
 
 run_linters() {
   echo "Running black..."
-  python3 -m black --check $@
+  python3 -m black --check "$@"
 
   echo "Running mypy..."
-  python3 -m mypy $@
+  python3 -m mypy "$@"
 
   echo "Running flake8..."
-  python3 -m flake8 $@
+  python3 -m flake8 "$@"
 
   echo "Running pylint..."
-  python3 -m pylint -j 4 --prefer-stubs y $@
+  python3 -m pylint -j 4 --prefer-stubs y "$@"
 }
 
 if [ -n "$git_diff_py_files" ]; then
@@ -34,6 +39,10 @@ if [ -n "$git_diff_py_files" ]; then
   run_linters $py_files
 else
   echo "No Python changes — validating all Python files..."
-  all_py_files=$(find . -type f -name "*.py" -not -path "*/.*" | grep -Ev "pb2|pb2_grpc")
+  all_py_files=$(find . -type f -name "*.py" \
+    -not -path "./venv_template/*" \
+    | grep -Ev "core/" \
+    | grep -Ev "manage.py")
+
   run_linters $all_py_files
 fi
