@@ -9,7 +9,7 @@ echo "Target branch: origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
 # Исключаем venv_template/ из diff
 git_diff_py_files=$(git diff origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME} --name-only \
   | grep ".*\.py$" \
-  | grep -Ev "^venv_template/" \
+  | grep -Ev "^venv/" \
   | grep -Ev "core/" \
   | grep -Ev "manage.py")
 
@@ -40,7 +40,7 @@ if [ -n "$git_diff_py_files" ]; then
 else
   echo "No Python changes — validating all Python files..."
   all_py_files=$(find . -type f -name "*.py" \
-    -not -path "./venv_template/*" \
+    -not -path "./venv/*" \
     | grep -Ev "core/" \
     | grep -Ev "manage.py")
 
