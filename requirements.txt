@@ -27,7 +27,6 @@ pathspec
 pillow
 platformdirs
 pre_commit
-psycopg2-binary
 pycodestyle
 pyflakes
 pylint
@@ -36,3 +35,4 @@ sqlparse
 tomlkit
 typing_extensions
 virtualenv
+psycopg2-binary==2.9.9
