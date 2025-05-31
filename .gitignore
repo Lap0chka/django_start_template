@@ -61,4 +61,5 @@ grpc/**
 /logs/
 /.qodo/
 /backend/logs/
-/venv_template/
+/venv/
+venv/
