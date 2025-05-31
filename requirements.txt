@@ -38,4 +38,8 @@ virtualenv
 celery
 redis
 flower
+djangorestframework
+markdown
+django-filter
+drf_spectacular
 psycopg2-binary==2.9.9

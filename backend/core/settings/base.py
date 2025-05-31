@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'simple_history',
     'django_cleanup.apps.CleanupConfig',
     'corsheaders',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,20 @@ CELERY_RESULT_BACKEND = REDIS_URL
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_BROKER_CONNECTION_RETRY_DELAY = 5.0
 CELERY_ENABLE_UTC = False
+
+
+# DRF
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+# Swagger
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Your API",
+    "DESCRIPTION": "API description",
+    "VERSION": "1.0.0",
+}
